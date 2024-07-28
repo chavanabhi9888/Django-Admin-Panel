@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trainer List</title>
+</head>
+<body>
+    <h1>Submitted Data</h1>
+    <ul>
+        {% for item in trainer_list %}
+        <li>{{ item.first_name }} {{ item.last_name }}- {{ item.location }} - {{ item.diet_plan }} - {{item.contact }} - {{ item.gym_id }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

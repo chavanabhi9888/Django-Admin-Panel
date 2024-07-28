@@ -1,0 +1,98 @@
+{% load static custom_tags mptt_tags %}
+
+<!-- Call Action -->
+<div class="call-action style-1 content-inner-1">
+    <div class="container">
+        <div class="inner-action overlay-primary-dark" style="background-image:url('/static/theme11/images/background/bg1.jpg'); background-size: cover; background-repeat: no-repeat;">
+            <div class="row inner-content justify-content-center">
+                <div class="col-xl-6 col-lg-9">
+                    <div class="section-head text-center">
+                        <h2 class="title text-white">Don’t miss our weekly updates about donations</h2>
+                    </div>
+                    <form class="dzSubscribe" id="subscribe-form">
+                        {% csrf_token %}
+                        <div class="dzSubscribeMsg text-white"></div>
+                        <div class="input-group">
+                            <input name="dzEmail" required="required" type="email" class="form-control" placeholder="Enter your email address...">
+                            <div class="input-group-addon">
+                                <button name="submit" value="Submit" type="submit" class="btn btn-secondary btn-rounded-lg">
+                                    <span>SUBSCRIBE</span>
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Call Action -->
+
+<!-- Footer -->
+<footer  class="site-footer style-1" id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-lg-12 col-md-12">
+                    <div class="widget widget_about">
+                        <div class="footer-logo logo-white">
+                            <a href="{% url 'frontend:home' %}" class="logo-white"><img src="{{site_config.Site.other_logo.value}}" alt=""></a> 
+                        </div>
+                        <p>{{site_config.Site.tagline.value}}</p>
+                        <div class="dz-social-icon style-1">
+                            <ul>
+                                <li><a target="_blank" class="fab fa-facebook-f" href="{{site_config.Social.facebook.value}}"></a></li>
+                                <li><a target="_blank" class="fab fa-instagram" href="{{site_config.Social.instagram.value}}"></a></li>
+                                <li><a target="_blank" class="fab fa-twitter" href="{{site_config.Social.twitter.value}}"></a></li>
+                                <li><a target="_blank" class="fab fa-youtube" href="{{site_config.Social.youtube.value}}"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-3 col-6">
+                    <div class="widget widget_services">
+                        <h5 class="footer-title">Resources</h5>
+                        <ul>
+                            <li><a href="{% url 'frontend:home' %}">How It Works</a></li>
+                            <li><a href="{% url 'frontend:contactus' %}">Ask A Question</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-3 col-6">
+                    <div class="widget widget_services">
+                        <h5 class="footer-title">Company</h5>
+                        <ul>
+                            <li><a href="{% url 'frontend:home' %}">Home</a></li>
+                            <li><a href="{% url 'frontend:contactus' %}">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="widget widget_getintuch">
+                        <h5 class="footer-title">Get in Touch with Us</h5>
+                        <ul>
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{site_config.Site.address.value}}</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-phone"></i>
+                                <span>{{site_config.Site.contact.value}}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope"></i> 
+                                <span>{{site_config.Site.email.value}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="/static/theme11/images/pattern/shape7.png" class="shape-1 move-2" alt="shape">
+			<img src="/static/theme11/images/pattern/shape8.png" class="shape-2 move-2" alt="shape">
+			<img src="/static/theme11/images/pattern/shape9.png" class="shape-3 move-2" alt="shape">
+    </div>
+</footer>
+<!-- Footer END-->
+<button class="scroltop icon-up" type="button"><i class="fas fa-arrow-up"></i></button>

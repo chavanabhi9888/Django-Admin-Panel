@@ -1,0 +1,200 @@
+{% load static mptt_tags custom_tags %}
+
+<header class="site-header mo-left header style-1">
+		
+	<!-- Top Header -->
+	<div class="top-bar">
+		<div class="container">
+			<div class="dz-topbar-inner d-flex justify-content-between align-items-center">
+				<div class="dz-topbar-left">
+					<ul>
+						<li>{{site_config.Site.title.value}}</li>
+						<li>
+							<a href="javascript:void(0);" class="badge badge-primary btn-login" data-bs-toggle="modal" data-bs-target="#modalLogin">
+								<i class="flaticon-logout me-2" ></i>Login / Sign Up
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="dz-topbar-right">
+					<ul>
+						<li><i class="fa-solid fa-phone"></i>{{site_config.Site.contact.value}}</li>
+						<li><i class="fas fa-envelope"></i>{{site_config.Site.email.value}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Main Header -->
+	<div class="sticky-header main-bar-wraper navbar-expand-lg">
+		<div class="main-bar clearfix">
+			<div class="container clearfix">
+				<div class="box-header clearfix">
+				
+					<!-- Website Logo -->
+					<div class="logo-header mostion logo-dark">
+						<a href="{% url 'frontend:home' %}" class="logo-dark"><img src="{{site_config.Site.logo_dark.value}}" alt=""></a>
+					</div>
+					
+					<!-- Nav Toggle Button -->
+					<button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+
+
+					<!-- Extra Nav -->
+					<div class="extra-nav">
+						<div class="extra-cell">
+							<a href="{% url 'frontend:contactus' %}" class="btn btn-outline-secondary btnhover1">
+								<i class="fa-solid fa-headset"></i>
+								<span class="m-l10">Contact Us</span>
+							</a>
+						</div>
+					</div>
+					
+					<!-- Search Form -->
+					<div class="dz-quik-search">
+						<form action="{% url 'frontend:home'  %}">
+							<input name="search" type="text" class="form-control" placeholder="Enter Your Keyword ..." {% if query %} value="{{query}}" {% endif %}>
+							<span id="quik-search-remove"><i class="fa-solid fa-xmark"></i></span>
+						</form>
+					</div>
+					
+					<!-- Header Nav -->
+					<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
+						<div class="logo-header logo-dark">
+							<a href="{% url 'frontend:home' %}" class="logo-dark"><img src="{{site_config.Site.logo_dark.value}}" alt=""></a>
+						</div>
+						<ul class="nav navbar-nav navbar navbar-left">	
+							{% with menu_items='header-menu'|getMenu %}
+								{% recursetree menu_items %}
+								{% if not node.is_leaf_node %}
+								<li  class="sub-menu-down">
+								{% else %}
+								<li >
+								{% endif %}
+									<a 
+									{% if node.attributes.target == '1' %}
+									target="_blank"
+									{% endif %}
+									class="{{ node.attributes.class }}"
+									title="{{ node.attributes.title }}" 
+									href="{% if node.link %}
+											{{ node.link }}
+											{% else %}
+											{{ node.type|getMenuItemUrl:node.item_id }}
+										{% endif %}"
+									>
+										{{node.title|truncatechars:20}}
+									</a>
+									{% if not node.is_leaf_node %}
+									<ul class="sub-menu">
+										{{children}}
+									</ul>
+									{% endif %}
+								</li>
+								{% endrecursetree %}
+							{% endwith %}
+						</ul>
+						<div class="header-bottom">
+							<a href="javascript:void(0);" class="btn btn-light btn-login btn-sm" data-bs-toggle="modal" data-bs-target="#modalLogin">
+								<i class="flaticon-logout me-3"></i>Login / Sign Up
+							</a>
+							<div class="dz-social-icon">
+								<ul>
+									<li><a class="fab fa-facebook-f" href="{{site_config.Social.facebook.value}}"></a></li>
+									<li><a class="fab fa-twitter" href="{{site_config.Social.twitter.value}}"></a></li>
+									<li><a class="fab fa-linkedin-in" href="{{site_config.Social.linkedin.value}}"></a></li>
+									<li><a class="fab fa-instagram" href="{{site_config.Social.instagram.value}}"></a></li>
+								</ul>
+							</div>	
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Main Header End -->
+	
+</header>
+<!-- Header -->
+
+<!-- Authentication Modal -->
+<div class="modal fade modal-wrapper auth-modal" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLogin" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<!-- Login Your Account -->
+		<div class="modal-content">
+			<h2 class="title">Login Your Account</h2>
+			<form action="index.html">
+				<div class="form-group">
+					<input type="email" class="form-control" placeholder="Email Address">
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" placeholder="Password">
+					<div class="reset-password">
+						<a class="btn-link collapsed" data-bs-toggle="collapse" href="#reset-password" role="button" aria-expanded="false" aria-controls="reset-password">Reset password?</a>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-sm btn-outline-primary btn-block">Login</button>
+				</div>
+				<div class="form-group">
+					<a href="javascript:void(0);" class="btn btn-sm facebook btn-block"><i class="fa-brands fa-facebook-f m-r10"></i>Log in with Facebook</a>
+				</div>
+				<div class="form-group">
+					<a href="javascript:void(0);" class="btn btn-sm google-plus btn-block"><i class="fa-brands fa-google m-r10"></i>Log in with Google</a>
+				</div>
+				<div class="sign-text">
+					<span>Don't have a Crowdfunding account? <a class="btn-link collapsed" data-bs-toggle="collapse" href="#sign-up" role="button" aria-expanded="false" aria-controls="sign-up">Sign up</a></span>
+				</div>
+			</form>
+		</div>
+		
+		<!-- Reset Password -->
+		<div class="modal-content collapse reset-password" id="reset-password">
+			<h2 class="title">Reset password?</h2>
+			<form>
+				<div class="form-group password-icon-bx">
+					<i class="fa fa-lock"></i>
+					<p>Enter your email address associated with your account, and we'll email you a link to reset your password...</p>
+				</div>
+				<div class="form-group">
+					<input type="email" class="form-control" placeholder="Enter email address">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-sm btn-outline-primary btn-block">Send reset link</button>
+				</div>
+				<a data-bs-toggle="collapse" href="#reset-password" class="sign-text" role="button" aria-expanded="false" aria-controls="reset-password">Back</a>
+			</form>
+		</div>
+		
+		<!-- Sign Up Your Account -->
+		<div class="modal-content collapse sign-up" id="sign-up">
+			<h2 class="title">Sign Up Your Account</h2>
+			<form action="index.html">
+				<div class="form-group">
+					<input type="email" class="form-control" placeholder="Email Address">
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" placeholder="Password">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-sm btn-outline-primary btn-block">Sign Up</button>
+				</div>
+				<div class="form-group">
+					<a href="javascript:void(0);" class="btn btn-sm facebook btn-block"><i class="fa-brands fa-facebook-f m-r10"></i>Log in with Facebook</a>
+				</div>
+				<div class="form-group">
+					<a href="javascript:void(0);" class="btn btn-sm google-plus btn-block"><i class="fa-brands fa-google m-r10"></i>Log in with Google</a>
+				</div>
+				<div class="sign-text">
+					<span>Don't have a Crowdfunding account? <a class="btn-link collapsed" data-bs-toggle="collapse" href="#sign-up" role="button" aria-expanded="false" aria-controls="sign-up">Login</a></span>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

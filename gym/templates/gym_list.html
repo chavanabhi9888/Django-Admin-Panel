@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data List</title>
+</head>
+<body>
+    <h1>Submitted Data</h1>
+    <ul>
+        {% for item in data_list %}
+        <li>{{ item.name }} - {{ item.location }} - {{ item.number_of_trainer }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
